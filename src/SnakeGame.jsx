@@ -404,7 +404,7 @@ const SnakeGame = () => {
     setLogoError(true);
   };
 
-  // Render game board with animations
+  // Render game board with realistic snake and apple
   const renderBoard = () => {
     const board = [];
 
@@ -415,34 +415,139 @@ const SnakeGame = () => {
         );
         const isHead = snake[0].x === x && snake[0].y === y;
         const isFood = food.x === x && food.y === y;
+        const snakeIndex = snake.findIndex(
+          (segment) => segment.x === x && segment.y === y
+        );
 
         let cellClass = "absolute border border-gray-700";
 
         if (isHead) {
-          cellClass += " bg-green-500 rounded-lg";
-        } else if (isSnake) {
-          cellClass += " bg-green-600 rounded-sm";
-        } else if (isFood) {
-          cellClass += " bg-red-500 rounded-full animate-pulse";
-        } else {
-          cellClass += " bg-gray-800";
-        }
+          // Realistic snake head with eyes
+          cellClass += " rounded-lg relative overflow-hidden";
+          const headStyle = {
+            background:
+              "linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%)",
+            boxShadow: "inset 0 -2px 4px rgba(0,0,0,0.2)",
+          };
 
-        board.push(
-          <motion.div
-            key={`${x}-${y}`}
-            className={cellClass}
-            style={{
-              width: cellSize,
-              height: cellSize,
-              left: x * cellSize,
-              top: y * cellSize,
-            }}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          />
-        );
+          board.push(
+            <motion.div
+              key={`${x}-${y}`}
+              className={cellClass}
+              style={{
+                ...headStyle,
+                width: cellSize,
+                height: cellSize,
+                left: x * cellSize,
+                top: y * cellSize,
+              }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            >
+              {/* Snake eyes */}
+              <div className="absolute top-1 left-1 w-1 h-1 bg-black rounded-full"></div>
+              <div className="absolute top-1 right-1 w-1 h-1 bg-black rounded-full"></div>
+            </motion.div>
+          );
+        } else if (isSnake) {
+          // Realistic snake body with gradient and segments
+          const intensity = Math.max(
+            0.3,
+            1 - (snakeIndex / snake.length) * 0.7
+          );
+          const bodyStyle = {
+            background: `linear-gradient(135deg, 
+              rgb(5, 150, 105) 0%, 
+              rgb(16, 185, 129) 50%, 
+              rgb(34, 197, 94) 100%)`,
+            opacity: intensity,
+            boxShadow: "inset 0 -1px 2px rgba(0,0,0,0.1)",
+          };
+
+          board.push(
+            <motion.div
+              key={`${x}-${y}`}
+              className={cellClass + " rounded-sm"}
+              style={{
+                ...bodyStyle,
+                width: cellSize,
+                height: cellSize,
+                left: x * cellSize,
+                top: y * cellSize,
+              }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: intensity }}
+              transition={{ duration: 0.2 }}
+            />
+          );
+        } else if (isFood) {
+          // Realistic apple with stem and leaf
+          board.push(
+            <motion.div
+              key={`${x}-${y}`}
+              className="absolute flex items-center justify-center"
+              style={{
+                width: cellSize,
+                height: cellSize,
+                left: x * cellSize,
+                top: y * cellSize,
+              }}
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              {/* Apple body */}
+              <motion.div
+                className="relative rounded-full shadow-lg"
+                style={{
+                  width: cellSize * 0.8,
+                  height: cellSize * 0.8,
+                  background:
+                    "linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%)",
+                  boxShadow:
+                    "inset -2px -2px 4px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2)",
+                }}
+                animate={{
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, -5, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              >
+                {/* Apple stem */}
+                <div
+                  className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-2 bg-amber-900 rounded-full"
+                  style={{ transform: "translateX(-50%) translateY(-50%)" }}
+                />
+                {/* Apple leaf */}
+                <div className="absolute top-0 left-1/2 transform -translate-x-2 -translate-y-1/2 w-2 h-1 bg-green-500 rounded-full rotate-45" />
+                {/* Apple highlight */}
+                <div className="absolute top-2 left-2 w-1 h-1 bg-red-200 rounded-full opacity-60" />
+              </motion.div>
+            </motion.div>
+          );
+        } else {
+          // Empty cell
+          board.push(
+            <motion.div
+              key={`${x}-${y}`}
+              className={cellClass + " bg-gray-800"}
+              style={{
+                width: cellSize,
+                height: cellSize,
+                left: x * cellSize,
+                top: y * cellSize,
+              }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+          );
+        }
       }
     }
 
@@ -554,7 +659,11 @@ const SnakeGame = () => {
                     </li>
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                      Eat red food to grow
+                      Eat{" "}
+                      <span className="text-red-400 font-bold mx-2 ">
+                        APPLE
+                      </span>{" "}
+                      to grow
                     </li>
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>

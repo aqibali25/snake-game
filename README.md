@@ -1,16 +1,52 @@
-# React + Vite
+# 🐍 Snake Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive Snake game built with React featuring smooth animations, realistic graphics, and mobile-friendly controls. Experience the classic Snake game with enhanced visuals and professional gameplay mechanics.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18.2.0-blue)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC)
+![Framer Motion](https://img.shields.io/badge/Animations-Framer_Motion-FF69B4)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🎮 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎯 Core Gameplay
 
-## Expanding the ESLint configuration
+- **Classic Snake Mechanics** with modern enhancements
+- **Realistic Snake** with gradient body and animated head with eyes
+- **Apple Food** with stem, leaf, and pulsing animations
+- **Progressive Difficulty** - speed increases every 5 points
+- **Collision Detection** for walls and self-collision
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🎨 Visual Enhancements
+
+- **Smooth Animations** using Framer Motion
+- **Countdown Sequence** (3-2-1) for professional start
+- **Responsive Design** that works on all devices
+- **Mobile-Optimized** touch controls with swipe gestures
+- **Beautiful Gradients** and modern UI with Tailwind CSS
+
+### ⚡ Advanced Features
+
+- **Pause/Resume** functionality with ESC key or spacebar
+- **Local Storage** for persistent best scores
+- **Keyboard & Touch** controls support
+- **Start Screen** with game instructions
+- **Game Over** screen with score comparison
+
+---
+
+## 🚀 Live Demo
+
+[Add your live demo link here]
+
+---
+
+## 🛠️ Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/yourusername/snake-game.git
+cd snake-game
+```
