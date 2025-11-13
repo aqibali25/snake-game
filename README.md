@@ -155,7 +155,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - Inspired by the classic Nokia Snake game
 - Built with modern web technologies
 - Thanks to the React and Tailwind CSS communities
-
-```
-
-```

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ANIMATION_VARIANTS } from "../utils/constants";
+import Logo from "../../public/logo.png";
 
 const StartScreen = ({
   showStartScreen,
@@ -39,7 +40,7 @@ const StartScreen = ({
               >
                 {!logoError ? (
                   <motion.img
-                    src="/logo.png"
+                    src={Logo}
                     alt="Snake Game Logo"
                     className="h-16 sm:h-30 md:h-40 object-contain"
                     onError={onLogoError}
